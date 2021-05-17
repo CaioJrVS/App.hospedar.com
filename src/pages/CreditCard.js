@@ -40,31 +40,26 @@ const onSubmit = async (values) => {
   console.log(values.cvc);
   let validacao = true;
 
-  if (values.number){
-    if (values.number.length < 16){
-      validacao = false;
-    }
+  if (values.number == undefined){
+    validacao = false;
+  }
+  
+  if (values.name == undefined){
+    validacao = false;
+    window.alert("nome.");
   }
 
-  if (values.nome){
-    if (values.number.length < 3){
-      validacao = false;
-    }
+  if (values.expiry == undefined){
+    validacao = false;
+    window.alert("expiracao.");
   }
 
-  if (values.expiry){
-    if (values.number.length < 4){
-      validacao = false;
-    }
+  if (values.cvc == undefined){
+    validacao = false;
+    window.alert("cvc.");
   }
 
-  if (values.cvc){
-    if (values.cvc.length < 3){
-      validacao = false;
-    }
-  }
-
-  if (validacao){
+  if (!validacao){
     window.alert("Preencha todos os dados corretamente.");
   }else{
     window.alert("Pagamento realizado com sucesso!");
