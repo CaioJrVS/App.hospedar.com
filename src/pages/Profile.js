@@ -3,6 +3,7 @@ import NavBar from '../Component/NavBar'
 import styled from 'styled-components'
 
 import LinkButton from '../Component/LinkButton'
+import MyFlightCard from '../Component/MyFlightCard'
 
 const FilterWrapper = styled.div`
     width: 100%;
@@ -14,7 +15,17 @@ const FilterWrapper = styled.div`
     border-radius: 10px;
     padding: 20px;
     font-family: 'Roboto', sans-serif;
-    margin: 10px 10px 10px 10px;
+    margin: 10px;
+    @media(min-width: 1200px) {
+        max-width: 1200px;
+    }
+`
+
+const MyFlightsWrapper = styled.div`
+    width: 100%;
+    margin: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     @media(min-width: 1200px) {
         max-width: 1200px;
     }
@@ -87,6 +98,13 @@ export default function Profile() {
                                 <input type="text" readonly class="form-control" bg = "white" id="staticEmail" value="R$ 500,00"></input>
                                 {/* <input type="date" class="form-control" id="inputEmail4"/> */}
                                 </div>
+                                
+                                <MyFlightsWrapper>
+                                    <MyFlightCard/>
+                                    <MyFlightCard/>
+                                    <MyFlightCard/>
+                                    <MyFlightCard/>
+                                </MyFlightsWrapper>
                                 
                             </div>
                             <div class="w-100 d-flex justify-content-end">

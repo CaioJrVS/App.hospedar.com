@@ -35,7 +35,7 @@ class NavBar extends React.Component {
                 <NavWrapper>
                     <Navbar bg="primary" variant="dark">
                         <BrandWrapper>
-                            <Link to="/">Hospedar</Link>
+                            <Link to="/">Viajar</Link>
                         </BrandWrapper>
                         
                         <Nav className={`justify-content-end w-100 mr-2 ${this.props.profileVisibility}`}>
