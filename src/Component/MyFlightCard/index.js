@@ -66,7 +66,7 @@ class MyFlight extends React.Component {
                         
                         <p>Preço = RS 999,99</p>
 
-                        <LinkButton href="/destinations/airplane" name="Alterar Vôo" fields={this.props.state}/> 
+                        <LinkButton href="/" name="Alterar Vôo" fields={this.props.state}/> 
                     </DescriptionWrapper>
                 </MyFlightWrapper>
         )
