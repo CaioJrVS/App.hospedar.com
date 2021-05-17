@@ -31,10 +31,47 @@ const FilterWrapper = styled.div`
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const onSubmit = async (values) => {
+  
   await sleep(300);
   // window.alert(JSON.stringify(values, 0, 2));
-  window.alert("Pagamento realizado com sucesso!")
-  window.location='/';
+  console.log(values.number);
+  console.log(values.name);
+  console.log(values.expiry);
+  console.log(values.cvc);
+  let validacao = true;
+
+  if (values.number){
+    if (values.number.length < 16){
+      validacao = false;
+    }
+  }
+
+  if (values.nome){
+    if (values.number.length < 3){
+      validacao = false;
+    }
+  }
+
+  if (values.expiry){
+    if (values.number.length < 4){
+      validacao = false;
+    }
+  }
+
+  if (values.cvc){
+    if (values.cvc.length < 3){
+      validacao = false;
+    }
+  }
+
+  if (validacao){
+    window.alert("Preencha todos os dados corretamente.");
+  }else{
+    window.alert("Pagamento realizado com sucesso!");
+    window.location='/';
+  }
+  
+
 };
 
 const CreditCard = () => (
