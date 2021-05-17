@@ -45,14 +45,20 @@ export default function Profile() {
                         <form>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                <label for="inputEmail4">Nome</label>
-                                <input type="text" readonly class="form-control" bg = "white" id="staticEmail" value="Cláudio"></input>
+                                <label for="inputEmail4">Nome Completo</label>
+                                <input type="text" readonly class="form-control" bg = "white" id="staticEmail" value="Cláudio Miceli de Farias"></input>
                                 
                                 </div>
-                                <div class="form-group col-md-6">
+                                {/* <div class="form-group col-md-6">
                                 <label for="inputPassword4">Sobrenome</label>
                                 <input type="text" readonly class="form-control" bg = "white" id="staticEmail" value="Miceli"></input>
+                                </div> */}
+                                <div class="form-group col-md-6">
+                                <label for="inputEmail4">Data de Nascimento</label>
+                                <input type="text" readonly class="form-control" bg = "white" id="staticEmail" value="27/04/1990"></input>
                                 </div>
+
+
                                 <div class="form-group col-md-6">
                                 <label for="inputEmail4">Email</label>
                                 <input type="text" readonly class="form-control" bg = "white" id="staticEmail" value="claudiomiceli@poli.ufrj.br"></input>
@@ -64,7 +70,7 @@ export default function Profile() {
                                 {/* <input type="date" class="form-control" id="inputEmail4"/> */}
                                 </div>
                                 
-                                <div class="form-group col-md-6">
+                                {/* <div class="form-group col-md-6">
                                 <label for="inputEmail4">Data de Nascimento</label>
                                 <input type="text" readonly class="form-control" bg = "white" id="staticEmail" value="20/10/1990"></input>
                                 </div>
@@ -72,14 +78,15 @@ export default function Profile() {
                                 <div class="form-group col-md-6">
                                 <label for="inputPassword4">Ultimos 4 digitos do Cartão de Crédito</label>
                                 <input type="text" readonly class="form-control" bg = "white" id="staticEmail" value="2312"></input>
-                                </div>
+                                </div> */}
                                 
                             </div>
-                            <div class="w-100 d-flex justify-content-end">
+                            {/* <div class="w-100 d-flex justify-content-end">
                                 <LinkButton href="/changeprofile" name="Editar"/>
-                            </div>
+                            </div> */}
                         
                         </form>
+                        <br></br>
                     <h2>Minhas Viagens</h2>     
                                 
                                 <MyFlightsWrapper>
