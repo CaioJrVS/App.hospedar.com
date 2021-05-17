@@ -46,17 +46,14 @@ const onSubmit = async (values) => {
   
   if (values.name == undefined){
     validacao = false;
-    window.alert("nome.");
   }
 
   if (values.expiry == undefined){
     validacao = false;
-    window.alert("expiracao.");
   }
 
   if (values.cvc == undefined){
     validacao = false;
-    window.alert("cvc.");
   }
 
   if (!validacao){
