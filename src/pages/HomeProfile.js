@@ -4,12 +4,11 @@ import {homeCardStates} from './../Data/homeCardStates';
 import Carousel from 'react-elastic-carousel'
 import NavBar from '../Component/NavBar'
 import HomeCard from '../Component/HomeCard'
-import LinkButton from '../Component/LinkButton'
 import styled from 'styled-components'
 import {Link} from 'react-router-dom'
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
-import { GET_CARD_FLIGHTS } from '../Shared/urls';
+import { GET_CARD_FLIGHTS, GET_HOME_CARD_FLIGHTS } from '../Shared/urls';
 
 const FilterWrapper = styled.div`
 		width: 100%;
@@ -51,15 +50,25 @@ export default function Home (props) {
 	const [flights, setFlights] = useState({availableFlights:[]})
 
 	useEffect(() => {
-	axios.get(GET_CARD_FLIGHTS)
-		.then(function (response) {
-			if(!flights.availableFlights.length > 0 ){
-				setFlights(x=>({ ...x ,availableFlights:[response.data]}), [flights.availableFlights]);
-			}
-		})
-		.catch(function (error) {
-		console.log(error);
-		})
+	// axios.get(GET_CARD_FLIGHTS)
+	// 	.then(function (response) {
+	// 		if(!flights.availableFlights.length > 0 ){
+	// 			setFlights(x=>({ ...x ,availableFlights:[response.data]}), [flights.availableFlights]);
+	// 		}
+	// 	})
+	// 	.catch(function (error) {
+	// 	console.log(error);
+	// 	})
+
+        axios.get(GET_HOME_CARD_FLIGHTS)
+            .then(function (response) {
+                if(!flights.availableFlights.length > 0 ){
+                    setFlights(x=>({ ...x ,availableFlights:[response.data]}), [flights.availableFlights]);
+                }
+            })
+            .catch(function(error) {
+                console.log(error);
+            })
 	});
 
 	// Validar opções selecionadas
@@ -209,9 +218,11 @@ export default function Home (props) {
 
 		<div className="carousel-container">
 		<Carousel breakPoints={breakPoints}>
-		{items.map((item) => (
-			<HomeCard key={item.ID} city={item.Nome} img={item.img}></HomeCard>
-		))}
+            <HomeCard key={1} city={'São Paulo'} price='569' src={items[0].img}></HomeCard>
+            <HomeCard key={2} city={'Minas Gerais'} price='475' src={items[1].img}></HomeCard>
+            <HomeCard key={3} city={'Santa Catarina'} price='345' src={items[4].img}></HomeCard>
+            <HomeCard key={4} city={'Bahia'} price='780' src={items[3].img}></HomeCard>
+            <HomeCard key={5} city={'Espirito Santo'} price='224' src={items[2].img}></HomeCard>
 		</Carousel>
 		</div>
 		</div>
