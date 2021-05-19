@@ -31,7 +31,7 @@ function Destinations(props) {
     useEffect(() => {
         axios.get(GET_DESTINATION_FLIGHTS, {params: {origin: cookies.get('origem'), destination: cookies.get('destino')}})
         .then(function (res) {
-            setPrice(res.data.price);
+            setPrice(parseFloat(cookies.get('seats')) * parseFloat(res.data.price));
         })
         .catch(function (err) {
             console.log(err);
