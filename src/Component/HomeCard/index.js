@@ -40,12 +40,12 @@ class HomeCard extends React.Component {
             <CardWrapper>
                 <Card>
                     <ImgWrapper>
-                        <Image src={this.props.img} rounded/>
+                        <Image src={this.props.src} rounded/>
                     </ImgWrapper>
                     <Card.Body>
                         <h5>Destino: {this.props.city}</h5>
                         <ButtonWrapper>
-                            <CardButton href="#" name="Price"/>
+                            <CardButton href="#" name={this.props.price}/>
                         </ButtonWrapper>
                         
                     </Card.Body>
