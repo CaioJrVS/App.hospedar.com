@@ -71,6 +71,8 @@ export default function Home (props) {
             })
 	});
 
+    console.log(flights)
+
 	// Validar opções selecionadas
 	const estados = [
         "Acre","Alagoas","Amazonas","Amapá","Bahia","Ceará","Distrito Federal","Espírito Santo","Goiás","Maranhão","Minas Gerais",
@@ -141,7 +143,6 @@ export default function Home (props) {
           ...prevState,
           [name]: value
         }));
-        console.log(fields);
       };
 
 	return (
