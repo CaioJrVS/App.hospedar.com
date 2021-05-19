@@ -25,18 +25,21 @@ const DestinationsContainer = styled.div`
 function Destinations(props) {
 
     const {cookies} = props;
+    console.log(cookies);
 
     const [price, setPrice] = useState('');
 
     useEffect(() => {
         axios.get(GET_DESTINATION_FLIGHTS, {params: {origin: cookies.get('origem'), destination: cookies.get('destino')}})
         .then(function (res) {
-            setPrice(parseFloat(cookies.get('seats')).toFixed(2) * parseFloat(res.data.price)).toFixed(2);
+            setPrice((parseFloat(cookies.get('seats')) * parseFloat(res.data.price)).toFixed(2));
         })
         .catch(function (err) {
             console.log(err);
         })
     })
+
+    // setCookie('price', price, { path: '/' });
 
     return(
         <Container>
