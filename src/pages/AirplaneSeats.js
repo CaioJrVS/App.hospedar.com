@@ -194,7 +194,6 @@ class AirplaneSeats extends Component {
         formIsValid = false;
     }
     
-  
     return formIsValid;
   
     
@@ -202,11 +201,12 @@ class AirplaneSeats extends Component {
   
   contactSubmit = (e) => {
     let valid = this.handleValidation();
-    e.preventDefault();
+    
     if(valid){
        //alert("Form submitted");
        //handleCookies();
     }else{
+        e.preventDefault();
         alert("Preencha todos os dados corretamente.")
   
     }
