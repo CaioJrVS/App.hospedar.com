@@ -1,10 +1,12 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import styled from "styled-components"
 
 import NavBar from '../Component/NavBar'
 import DestinationCard from '../Component/DestinationCard'
 import {importedAirlines} from '../Data/airlines'
-import { withCookies, Cookies } from 'react-cookie';
+import { withCookies, Cookies } from 'react-cookie'
+import {GET_DESTINATION_FLIGHTS} from '../Shared/urls'
+import axios from 'axios'
 
 const Container = styled.div`
     display: flex;
@@ -22,13 +24,25 @@ const DestinationsContainer = styled.div`
 
 function Destinations(props) {
 
-    //const { origem, destino, dataIda, dataVolta, numPassageiros } = (props.location && props.location.state) || {};
     const {cookies} = props;
+
+    const [price, setPrice] = useState('');
+
+    useEffect(() => {
+        axios.get(GET_DESTINATION_FLIGHTS, {params: {origin: cookies.get('origem'), destination: cookies.get('destino')}})
+        .then(function (res) {
+            setPrice(res.data.price);
+        })
+        .catch(function (err) {
+            console.log(err);
+        })
+    })
+
     return(
         <Container>
             <NavBar/>
             <DestinationsContainer>
-                {importedAirlines.map((airline) => <DestinationCard key={airline.ID} logo={airline.logo} name={cookies.get('destino')} origem={cookies.get('origem')}/>)}
+                {importedAirlines.map((airline) => <DestinationCard key={airline.ID} logo={airline.logo} name={cookies.get('destino')} origem={cookies.get('origem')} price={price}/>)}
             </DestinationsContainer>
         </Container>
     )

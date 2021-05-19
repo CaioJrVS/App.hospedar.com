@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import SeatPicker from "react-seat-picker";
 import NavBarProfile from "../Component/NavBarProfile";
@@ -200,13 +200,13 @@ class AirplaneSeats extends Component {
     
   }
   
-  contactSubmit = (evento) => {
+  contactSubmit = (e) => {
     let valid = this.handleValidation();
+    e.preventDefault();
     if(valid){
        //alert("Form submitted");
        //handleCookies();
     }else{
-        evento.preventDefault();
         alert("Preencha todos os dados corretamente.")
   
     }
