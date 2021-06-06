@@ -23,7 +23,8 @@
     "react-seat-picker": "^1.5.3",
     "react-tooltip": "^4.2.19",
     "styled-components": "^5.3.0",
-    "web-vitals": "^1.1.1"
+    "web-vitals": "^1.1.1",
+    "yarn": "^1.22.10"
   },
   "scripts": {
     "start": "react-scripts start",
