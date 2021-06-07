@@ -38,8 +38,9 @@ export default function Home (props) {
         dataIda: "",
         dataVolta: "",
         seats: ""
-})
+    })
 	const [cookies, setCookie] = useCookies(['seats']);
+    const [flights, setFlights] = useState([]);
 
     const loadingFunction = async () => {
         try {
@@ -65,8 +66,6 @@ export default function Home (props) {
 		setCookie('seats', fields.seats, { path: '/' });
     } 
 	
-	//const [flights, setFlights] = useState({availableFlights:[]})
-	const [flights, setFlights] = useState([]);
 
 	useEffect(() => {
         loadingFunction();
@@ -84,11 +83,11 @@ export default function Home (props) {
         let formIsValid = true;
         
         // Origem
-        if (!estados.includes(fields.origem)){
+        if ((fields.origem == "")){
             formIsValid = false;
         }
         // Destino
-        if ((!estados.includes(fields.destino)) || (fields.origem == fields.destino)){
+        if ((fields.destino == "") || (fields.origem == fields.destino)){
             formIsValid = false;
         }
         // Data Ida
@@ -224,7 +223,7 @@ export default function Home (props) {
                 <HomeCard key={4} city={flights[3].destination} price={flights[3].price.total} src={items[3].img}></HomeCard>
                 <HomeCard key={5} city={flights[4].destination} price={flights[4].price.total} src={items[2].img}></HomeCard>
             </Carousel>
-            
+
 		    : <Spinner animation="border" variant="primary" />}
         </div>
 		</div>
