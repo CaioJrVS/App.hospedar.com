@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect, Component } from 'react'
 import ReactDOM from "react-dom";
 import SeatPicker from "react-seat-picker";
 import NavBarProfile from "../Component/NavBarProfile";
@@ -108,75 +108,47 @@ function iniciaAssentos(seatmap) {
 }
 
 
-class AirplaneSeats extends Component {
-  constructor(props){
-    super(props);
+function AirplaneSeats (props){
+
     const {cookies} = props
-    this.state = {
+    let state = {
       loading: false,
-      seats: cookies.get('seats'),
+      origem : cookies.get('origem'),
+      destino : cookies.get('destino'),
+      dataIda : cookies.get('dataIda'),
+      seats : cookies.get('seats'),
       chosenSeats: []
     };
+  
 
-  }
+  function addSeatCallback({ row, number, id }, addCb){
 
-  addSeatCallback = ({ row, number, id }, addCb) => {
-    this.setState(
-      {
-        loading: false,
-      },
-      async () => {
-        await new Promise((resolve) => setTimeout(resolve, 50));
-        console.log(`Added seat ${number}, row ${row}, id ${id}`);
-        // const newTooltip = `tooltip for id-${id} added by callback`;
-        this.state.chosenSeats.push(number);
-        console.log(this.state.chosenSeats);
-        console.log(this.state.chosenSeats.length);
-        addCb(row, number, id, null); //newTooltip);
-        this.setState({ loading: false });
-      }
-    );
+    new Promise((resolve) => setTimeout(resolve, 50));
+    console.log(`Added seat ${number}, row ${row}, id ${id}`);
+    state.chosenSeats.push(number);
+    console.log(state.chosenSeats);
+    console.log(state.chosenSeats.length);
+    addCb(row, number, id, null);
+
   };
 
-  removeSeatCallback = ({ row, number, id }, removeCb) => {
-    this.setState(
-      {
-        loading: false, // talvez false
-      },
-      async () => {
-        await new Promise((resolve) => setTimeout(resolve, 50));
-        console.log(`Removed seat ${number}, row ${row}, id ${id}`);
-        // A value of null will reset the tooltip to the original while '' will hide the tooltip
-
-        // Remove seat from chosenSeats
-        const index = this.state.chosenSeats.indexOf(number);
-        this.state.chosenSeats.splice(index, 1);
-        console.log(this.state.chosenSeats);
-        console.log(this.state.chosenSeats.length);
-
-        const newTooltip = ["A", "B", "C"].includes(row) ? null : "";
-        removeCb(row, number, newTooltip);
-        this.setState({ loading: false });
-      }
-    );
+  function removeSeatCallback({ row, number, id }, removeCb){
+    new Promise((resolve) => setTimeout(resolve, 50));
+    console.log(`Removed seat ${number}, row ${row}, id ${id}`);
+    const index = state.chosenSeats.indexOf(number);
+    state.chosenSeats.splice(index, 1);
+    console.log(state.chosenSeats);
+    console.log(state.chosenSeats.length);
+    const newTooltip = ["A", "B", "C"].includes(row) ? null : "";
+    removeCb(row, number, newTooltip);
   };
 
-  handleValidation = () => {
-    let assentosEscolhidos = this.state.chosenSeats;
+  function handleValidation(){
+    let assentosEscolhidos = state.chosenSeats;
     let errorsInput = {};
     let formIsValid = true;
     
-    // Origem
-    // if (!estados.includes(fields.origem)){
-    //     formIsValid = false;
-    // }
-    // // Destino
-    // if ((!estados.includes(fields.destino)) || (fields.origem == fields.destino)){
-    //     formIsValid = false;
-    // }
-    // Data Ida
-    console.log(this.state.chosenSeats.length);
-    if (this.state.chosenSeats.length < parseInt(this.state.seats)){
+    if (state.chosenSeats.length < parseInt(state.seats)){
         formIsValid = false;
     }
     
@@ -185,8 +157,8 @@ class AirplaneSeats extends Component {
     
   }
   
-  contactSubmit = (e) => {
-    let valid = this.handleValidation();
+  function contactSubmit(e){
+    let valid = handleValidation();
     
     if(valid){
        //alert("Form submitted");
@@ -198,53 +170,58 @@ class AirplaneSeats extends Component {
     }
   }
 
-  render() {
-    //const myPlane = new aviao(64, 2, 4, 2);
-    const rows = iniciaAssentos(arquivoJSON);//seatmap);//myPlane);
+    const rows = iniciaAssentos(arquivoJSON);
     const seatCost = 100.0;
-    const seatChoose = this.state.seats;
+    const seatChoose = state.seats;
     let seat = Math.round(seatChoose * 100) / 100;
 
-    const { loading } = this.state;
-    return (
-      <div className="main">
-        <NavBarProfile />    
-        <div className="filter-container">
-        <FilterWrapper>
-          
-          <h2>Escolha seus {this.state.seats} assentos:<br/>  </h2>
+    const { loading } = state;
 
-            <SeatPicker
-              addSeatCallback={this.addSeatCallback}
-              removeSeatCallback={this.removeSeatCallback}
-              rows={rows}
-              maxReservableSeats={seatChoose}
-              alpha
-              //visible // Para mostrar as linhas, só que ele mostra em alfabeto
-              selectedByDefault
-              loading={loading}
-              tooltipProps={{ multiline: true }}
-            />
+    console.log(state.origem);
+    console.log(state.destino);
+    console.log(state.dataIda);
+    console.log(state.seats);
+    
+    useEffect(() => {}, [state.origem]);
 
-        <h3 id="seat">O valor total foi: R$ {(seat * seatCost).toFixed(2)}</h3>
-        <div class="w-200 d-flex justify-content-center">
-        <Link
-            className="btn btn-danger"
-            to={{
-                pathname: "/payment",
-                //state: {fields: fields}
-            }}
-            onClick={this.contactSubmit}
-        >
-        Buscar
-        </Link>
+  return (
+    <div className="main">
+      <NavBarProfile />    
+      <div className="filter-container">
+      <FilterWrapper>
+        
+        <h2>Escolha seus {state.seats} assentos:<br/>  </h2>
 
-        </div>
-        </FilterWrapper>
-        </div>
+          <SeatPicker
+            addSeatCallback={addSeatCallback}
+            removeSeatCallback={removeSeatCallback}
+            rows={rows}
+            maxReservableSeats={seatChoose}
+            alpha
+            //visible // Para mostrar as linhas, só que ele mostra em alfabeto
+            selectedByDefault
+            loading={loading}
+            tooltipProps={{ multiline: true }}
+          />
+
+      <h3 id="seat">O valor total foi: R$ {(seat * seatCost).toFixed(2)}</h3>
+      <div class="w-200 d-flex justify-content-center">
+      <Link
+          className="btn btn-danger"
+          to={{
+              pathname: "/payment",
+              //state: {fields: fields}
+          }}
+          onClick={contactSubmit}
+      >
+      Buscar
+      </Link>
+
       </div>
-    );
-  }
+      </FilterWrapper>
+      </div>
+    </div>
+  );
 }
 
 export default withCookies(AirplaneSeats);
