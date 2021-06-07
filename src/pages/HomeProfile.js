@@ -117,8 +117,8 @@ export default function Home (props) {
            //alert("Form submitted");
            handleCookies();
         }else{
-            e.preventDefault();
-            alert("Preencha todos os dados corretamente.")
+/*            e.preventDefault();
+            alert("Preencha todos os dados corretamente.")*/
 
         }
     }
