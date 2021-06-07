@@ -8,6 +8,7 @@ import styled from 'styled-components'
 import {Link} from 'react-router-dom'
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
+import Spinner from 'react-bootstrap/Spinner'
 import { GET_CARD_FLIGHTS, GET_HOME_CARD_FLIGHTS } from '../Shared/urls';
 
 const FilterWrapper = styled.div`
@@ -29,6 +30,7 @@ const FilterWrapper = styled.div`
 export default function Home (props) {
 
 	const [states, setStates] = useState([]);
+	const [loading, setLoading] = useState(false);
 	const [items, setItems] = useState(homeCardStates);
     const [fields, setFields] = useState({
         origem: "",
@@ -39,6 +41,22 @@ export default function Home (props) {
 })
 	const [cookies, setCookie] = useCookies(['seats']);
 
+    const loadingFunction = async () => {
+        try {
+            await axios.get('http://localhost:3001/api/Flight/Inspiration', {
+                params: {
+                    origin: 'MAD',
+                }
+            }).then(function (response) {
+                setFlights(response.data);
+                console.log(flights)
+            });
+            setLoading(true);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
 	function handleCookies() {
 		setCookie('origem', fields.origem, { path: '/' });
 		setCookie('destino', fields.destino, { path: '/' });
@@ -47,31 +65,12 @@ export default function Home (props) {
 		setCookie('seats', fields.seats, { path: '/' });
     } 
 	
-	const [flights, setFlights] = useState({availableFlights:[]})
+	//const [flights, setFlights] = useState({availableFlights:[]})
+	const [flights, setFlights] = useState([]);
 
 	useEffect(() => {
-	// axios.get(GET_CARD_FLIGHTS)
-	// 	.then(function (response) {
-	// 		if(!flights.availableFlights.length > 0 ){
-	// 			setFlights(x=>({ ...x ,availableFlights:[response.data]}), [flights.availableFlights]);
-	// 		}
-	// 	})
-	// 	.catch(function (error) {
-	// 	console.log(error);
-	// 	})
-
-        axios.get(GET_HOME_CARD_FLIGHTS)
-            .then(function (response) {
-                if(!flights.availableFlights.length > 0 ){
-                    setFlights(x=>({ ...x ,availableFlights:[response.data]}), [flights.availableFlights]);
-                }
-            })
-            .catch(function(error) {
-                console.log(error);
-            })
-	});
-
-    console.log(flights)
+        loadingFunction();
+	}, []);
 
 	// Validar opções selecionadas
 	const estados = [
@@ -212,20 +211,22 @@ export default function Home (props) {
 
 		<div className="offer-container">
 		<div className="offer-description-container">
-		<h6>Viaje</h6>
-		<h3>Vôos a partir de: Rio de Janeiro</h3>
+		<h6>Sugestões:</h6>
+		<h3>Vôos a partir de: Madrid</h3>
 		</div>
 
-
-		<div className="carousel-container">
-		<Carousel breakPoints={breakPoints}>
-            <HomeCard key={1} city={'São Paulo'} price='569' src={items[0].img}></HomeCard>
-            <HomeCard key={2} city={'Minas Gerais'} price='475' src={items[1].img}></HomeCard>
-            <HomeCard key={3} city={'Santa Catarina'} price='345' src={items[4].img}></HomeCard>
-            <HomeCard key={4} city={'Bahia'} price='780' src={items[3].img}></HomeCard>
-            <HomeCard key={5} city={'Espirito Santo'} price='224' src={items[2].img}></HomeCard>
-		</Carousel>
-		</div>
+        <div className="carousel-container">
+        {loading ? 
+            <Carousel breakPoints={breakPoints}>
+                <HomeCard key={1} city={flights[0].destination} price={flights[0].price.total} src={items[0].img}></HomeCard>
+                <HomeCard key={2} city={flights[1].destination} price={flights[1].price.total} src={items[1].img}></HomeCard>
+                <HomeCard key={3} city={flights[2].destination} price={flights[2].price.total} src={items[4].img}></HomeCard>
+                <HomeCard key={4} city={flights[3].destination} price={flights[3].price.total} src={items[3].img}></HomeCard>
+                <HomeCard key={5} city={flights[4].destination} price={flights[4].price.total} src={items[2].img}></HomeCard>
+            </Carousel>
+            
+		    : <Spinner animation="border" variant="primary" />}
+        </div>
 		</div>
 
 		</div>
