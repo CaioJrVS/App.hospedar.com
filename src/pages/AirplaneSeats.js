@@ -127,7 +127,7 @@ function AirplaneSeats (props){
     const [seatMap, setseatMap] = useState({})
     //const [lyricsItem, setLyricsItem] = useState(null);
     const [loading, setLoading] = useState(false);
-    
+    const [rows, setRows] = useState([])
     const loadSeatMap = async() =>{
       try {
         await axios.get(GET_SEATMAP,
@@ -140,8 +140,13 @@ function AirplaneSeats (props){
             }
           })
         .then(function (res) {
-          setseatMap(res.data[0])
-          const rows = iniciaAssentos(seatMap);
+          setRows(iniciaAssentos(res))
+          //setseatMap(res)//.data[0])
+          /*if(res)
+            console.log('Cheguei aqui no seatMap que nao pode estar undefined');
+            console.log(seatMap);
+            console.log(res)
+            setRows(iniciaAssentos(res));*/
         });
         setLoading(true);
       }catch(e){
@@ -211,10 +216,13 @@ function AirplaneSeats (props){
   
     }
   }
+//let arquivoJSON;
+//if(seatMap) {arquivoJSON = seatMap;
+//console.log(JSON.stringify(arquivoJSON))}
 
-    const rows = [[null]]//iniciaAssentos(seatMap);
+    //const rows = iniciaAssentos(seatMap);
     console.log("JSOOOOOOOOOOOOOOONNNNNNNNNNNNNNN")
-    console.log(seatMap)//arquivoJSON);
+    //console.log(seatMap["decks"])//arquivoJSON);
     const seatCost = 100.0;
     const seatChoose = state.seats;
     let seat = Math.round(seatChoose * 100) / 100;
