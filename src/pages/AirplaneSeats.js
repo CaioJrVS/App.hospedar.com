@@ -14,6 +14,7 @@ const FilterWrapper = styled.div`
   text-align: center;
   display: flex;
   flex-direction: column;
+  align-items: center;
   background-color: #222c69;
   color: white;
   border-radius: 10px;

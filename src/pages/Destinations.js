@@ -1,10 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import styled from "styled-components"
-
 import NavBar from '../Component/NavBar'
 import DestinationCard from '../Component/DestinationCard'
 import Spinner from 'react-bootstrap/Spinner'
-import {importedAirlines} from '../Data/airlines'
 import { withCookies, Cookies } from 'react-cookie'
 import {GET_DESTINATION_FLIGHTS} from '../Shared/urls'
 import axios from 'axios'
@@ -64,7 +62,9 @@ function Destinations(props) {
             <NavBar/>
             {loading ? 
                 <DestinationsContainer>
-                    {importedAirlines.map((airline) => <DestinationCard key={airline.ID} name={cookies.get('destino')} origem={cookies.get('origem')} price={destinationFlights[airline.ID].price.total} currency={destinationFlights[airline.ID].price.currency}/>)}
+                    <DestinationCard key="1" name={cookies.get('destino')} origem={cookies.get('origem')} price={destinationFlights[0].price.total} currency={destinationFlights[0].price.currency}/>
+                    <DestinationCard key="1" name={cookies.get('destino')} origem={cookies.get('origem')} price={destinationFlights[1].price.total} currency={destinationFlights[1].price.currency}/>
+                    <DestinationCard key="1" name={cookies.get('destino')} origem={cookies.get('origem')} price={destinationFlights[2].price.total} currency={destinationFlights[2].price.currency}/>
                 </DestinationsContainer>
                 : <Spinner animation="border" variant="primary" />
             }
