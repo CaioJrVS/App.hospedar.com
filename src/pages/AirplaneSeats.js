@@ -1,17 +1,12 @@
-import React, { useState, useEffect, Component } from 'react'
-import ReactDOM from "react-dom";
+import React, { useState, useEffect } from 'react'
 import SeatPicker from "react-seat-picker";
 import NavBarProfile from "../Component/NavBarProfile";
 import styled from "styled-components";
-import { withCookies, Cookies } from 'react-cookie';
+import { withCookies} from 'react-cookie';
 import {Link} from 'react-router-dom'
-//import seatmap from '.json';
 import {GET_SEATMAP} from '../Shared/urls'
 import axios from 'axios'
-//import 'bootstrap/dist/css/bootstrap.min.css';
 import Spinner from 'react-bootstrap/Spinner'
-const iataCodes = require('../Data/IATAcodesWorld.json');
-//const arquivoJSON = require('../Data/exampleSeatMap.json');
 
 const FilterWrapper = styled.div`
   width: 150%;
@@ -88,10 +83,6 @@ function iniciaAssentos(seatmap) {
     mSeats.push(arrSeats);
   }
   
-/*  const varStr = 'gOrOkA';
-  console.log(iataCodes[varStr.toUpperCase()]);*/
-
-  
   for (let el of seatmap["data"][0]["decks"][0]["seats"]){
 
     let x = el.coordinates.x;
@@ -116,7 +107,6 @@ function AirplaneSeats (props){
 
     const {cookies} = props
     let state = {
-      //loading: false,
       origem : cookies.get('origem'),
       destino : cookies.get('destino'),
       dataIda : cookies.get('dataIda'),
@@ -124,10 +114,10 @@ function AirplaneSeats (props){
       chosenSeats: []
     };
   
-    const [seatMap, setseatMap] = useState({})
-    //const [lyricsItem, setLyricsItem] = useState(null);
+
     const [loading, setLoading] = useState(false);
     const [rows, setRows] = useState([])
+
     const loadSeatMap = async() =>{
       try {
         await axios.get(GET_SEATMAP,
@@ -140,13 +130,7 @@ function AirplaneSeats (props){
             }
           })
         .then(function (res) {
-          setRows(iniciaAssentos(res))
-          //setseatMap(res)//.data[0])
-          /*if(res)
-            console.log('Cheguei aqui no seatMap que nao pode estar undefined');
-            console.log(seatMap);
-            console.log(res)
-            setRows(iniciaAssentos(res));*/
+          setRows(iniciaAssentos(res));
         });
         setLoading(true);
       }catch(e){
@@ -157,16 +141,6 @@ function AirplaneSeats (props){
     useEffect(() => {
       loadSeatMap()
     },[]);
-
-
-
-
-
-
-
-    
-    //let arquivoJSON = "PEW"//seatMap;
-
 
   function addSeatCallback({ row, number, id }, addCb){
 
@@ -216,24 +190,11 @@ function AirplaneSeats (props){
   
     }
   }
-//let arquivoJSON;
-//if(seatMap) {arquivoJSON = seatMap;
-//console.log(JSON.stringify(arquivoJSON))}
 
-    //const rows = iniciaAssentos(seatMap);
-    console.log("JSOOOOOOOOOOOOOOONNNNNNNNNNNNNNN")
-    //console.log(seatMap["decks"])//arquivoJSON);
     const seatCost = 100.0;
     const seatChoose = state.seats;
     let seat = Math.round(seatChoose * 100) / 100;
 
-    //setLoading(state);
-
-    console.log(state.origem);
-    console.log(state.destino);
-    console.log(state.dataIda);
-    console.log(state.seats);
-    
     useEffect(() => {}, [state.origem]);
 
   return (
@@ -250,7 +211,6 @@ function AirplaneSeats (props){
             rows={rows}
             maxReservableSeats={seatChoose}
             alpha
-            //visible // Para mostrar as linhas, só que ele mostra em alfabeto
             selectedByDefault
             tooltipProps={{ multiline: true }}
           />:
@@ -263,7 +223,6 @@ function AirplaneSeats (props){
           className="btn btn-danger"
           to={{
               pathname: "/payment",
-              //state: {fields: fields}
           }}
           onClick={contactSubmit}
       >
