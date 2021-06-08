@@ -28,7 +28,7 @@ class LinkButton extends React.Component {
     render() {
         return(
             <LinkWrapper >
-                <Link to={this.props.href}>R$ {this.props.name}</Link>
+                <Link to={this.props.href}>{this.props.currency} {this.props.name}</Link>
             </LinkWrapper>
         )
     }

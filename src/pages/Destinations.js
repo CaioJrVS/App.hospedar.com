@@ -3,6 +3,7 @@ import styled from "styled-components"
 
 import NavBar from '../Component/NavBar'
 import DestinationCard from '../Component/DestinationCard'
+import Spinner from 'react-bootstrap/Spinner'
 import {importedAirlines} from '../Data/airlines'
 import { withCookies, Cookies } from 'react-cookie'
 import {GET_DESTINATION_FLIGHTS} from '../Shared/urls'
@@ -13,6 +14,7 @@ const Container = styled.div`
     flex-direction: column;
     width: 100%;
     min-height: 100vh;
+    align-items: center;
 `
 
 const DestinationsContainer = styled.div`
@@ -25,28 +27,48 @@ const DestinationsContainer = styled.div`
 function Destinations(props) {
 
     const {cookies} = props;
-    console.log(cookies);
 
-    const [price, setPrice] = useState('');
+    const [destinationFlights, setDestinationFlights] = useState([]);
+    const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        axios.get(GET_DESTINATION_FLIGHTS, {params: {origin: cookies.get('origem'), destination: cookies.get('destino')}})
+    async function loadingDestinationFlights () {
+        await axios.get(GET_DESTINATION_FLIGHTS, {
+            params: {
+                origin: cookies.get('origem'), 
+                destination: cookies.get('destino'),
+                departureDate: cookies.get('dataIda'),
+                adults: cookies.get('seats')
+            }
+        })
         .then(function (res) {
-            setPrice((parseFloat(cookies.get('seats')) * parseFloat(res.data.price)).toFixed(2));
+            let flightArray = []
+            for (let i = 0; i < 10; i++) {
+                flightArray.push(res.data[i]);
+            }
+            setDestinationFlights(flightArray);
         })
         .catch(function (err) {
             console.log(err);
         })
-    })
+        setLoading(true);
+    }
+
+    useEffect(() => {
+        loadingDestinationFlights();
+    }, [])
 
     // setCookie('price', price, { path: '/' });
 
     return(
         <Container>
             <NavBar/>
-            <DestinationsContainer>
-                {importedAirlines.map((airline) => <DestinationCard key={airline.ID} logo={airline.logo} name={cookies.get('destino')} origem={cookies.get('origem')} price={price}/>)}
-            </DestinationsContainer>
+            {loading ? 
+                <DestinationsContainer>
+                    {importedAirlines.map((airline) => <DestinationCard key={airline.ID} name={cookies.get('destino')} origem={cookies.get('origem')} price={destinationFlights[airline.ID].price.total} currency={destinationFlights[airline.ID].price.currency}/>)}
+                </DestinationsContainer>
+                : <Spinner animation="border" variant="primary" />
+            }
+            
         </Container>
     )
 }
