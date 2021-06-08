@@ -1,34 +1,33 @@
-import rjImg from '../assets/rio-de-janeiro.png'
-import spImg from '../assets/sao-paulo.jpg'
-import mgImg from '../assets/minas-gerais.jpg'
-import esImg from '../assets/espirito-santo.jpg'
-import baImg from '../assets/bahia.jpg'
-import scImg from '../assets/santa-catarina.jpeg'
+import lisboaImg from '../assets/lisboa.jpg'
+import mallorcaImg from '../assets/mallorca.jpg'
+import portoImg from '../assets/porto.jpg'
+import milaoImg from '../assets/milao.jpg'
+import londresImg from '../assets/londres.jpg'
 
 export const homeCardStates = [
     {
         "ID": "1",
-        "Nome": "São Paulo",
-        "img": `${spImg}`
+        "Nome": "Lisboa",
+        "img": `${lisboaImg}`
     },
     {
         "ID": "2",
-        "Nome": "Minas Gerais",
-        "img": `${mgImg}`
+        "Nome": "Palma de Mallorca",
+        "img": `${mallorcaImg}`
     },
     {
         "ID": "3",
-        "Nome": "Espírito Santo",
-        "img": `${esImg}`
+        "Nome": "Porto",
+        "img": `${portoImg}`
     },
     {
         "ID": "4",
-        "Nome": "Bahia",
-        "img": `${baImg}`
+        "Nome": "Milão",
+        "img": `${milaoImg}`
     },
     {
         "ID": "5",
-        "Nome": "Santa Catarina",
-        "img": `${scImg}`
+        "Nome": "Londres",
+        "img": `${londresImg}`
     }
 ]
