@@ -14,6 +14,7 @@ const CardWrapper = styled.div`
     transition: 0.3s;
     display: flex;
     flex-direction: column;
+    max-height: 286px;
 
     :hover {
         box-shadow: 5px 5px 11px rgba(33,33,33,.2);
@@ -21,6 +22,7 @@ const CardWrapper = styled.div`
 
     h5 {
         margin-bottom: 40px;
+        max-height: 24px;
     }
 `
 
@@ -45,7 +47,7 @@ class HomeCard extends React.Component {
                     <Card.Body>
                         <h5>Destino: {this.props.city}</h5>
                         <ButtonWrapper>
-                            <CardButton href="#" name={this.props.price}/>
+                            <CardButton href="#" currency={this.props.currency} name={this.props.price}/>
                         </ButtonWrapper>
                         
                     </Card.Body>

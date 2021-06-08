@@ -9,7 +9,7 @@ import {Link} from 'react-router-dom'
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
 import Spinner from 'react-bootstrap/Spinner'
-import { GET_CARD_FLIGHTS, GET_HOME_CARD_FLIGHTS } from '../Shared/urls';
+import airports from '../Data/airports.json'
 
 const FilterWrapper = styled.div`
 		width: 100%;
@@ -50,7 +50,8 @@ export default function Home (props) {
                 }
             }).then(function (response) {
                 setFlights(response.data);
-                console.log(flights)
+                console.log(flights);
+                console.log('AIRPORTS');
             });
             setLoading(true);
         } catch (error) {
@@ -141,6 +142,7 @@ export default function Home (props) {
           ...prevState,
           [name]: value
         }));
+        console.log(fields);
       };
 
 	return (
@@ -217,11 +219,11 @@ export default function Home (props) {
         <div className="carousel-container">
         {loading ? 
             <Carousel breakPoints={breakPoints}>
-                <HomeCard key={1} city={flights[0].destination} price={flights[0].price.total} src={items[0].img}></HomeCard>
-                <HomeCard key={2} city={flights[1].destination} price={flights[1].price.total} src={items[1].img}></HomeCard>
-                <HomeCard key={3} city={flights[2].destination} price={flights[2].price.total} src={items[4].img}></HomeCard>
-                <HomeCard key={4} city={flights[3].destination} price={flights[3].price.total} src={items[3].img}></HomeCard>
-                <HomeCard key={5} city={flights[4].destination} price={flights[4].price.total} src={items[2].img}></HomeCard>
+                <HomeCard key={1} city={airports[flights[0].destination].city} price={flights[0].price.total} src={items[0].img} currency="EUR"></HomeCard>
+                <HomeCard key={2} city={airports[flights[1].destination].city} price={flights[1].price.total} src={items[1].img} currency="EUR"></HomeCard>
+                <HomeCard key={3} city={airports[flights[2].destination].city} price={flights[2].price.total} src={items[4].img} currency="EUR"></HomeCard>
+                <HomeCard key={4} city={airports[flights[3].destination].city} price={flights[3].price.total} src={items[3].img} currency="EUR"></HomeCard>
+                <HomeCard key={5} city={airports[flights[4].destination].city} price={flights[4].price.total} src={items[2].img} currency="EUR"></HomeCard>
             </Carousel>
 
 		    : <Spinner animation="border" variant="primary" />}
