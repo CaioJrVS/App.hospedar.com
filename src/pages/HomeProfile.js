@@ -73,11 +73,6 @@ export default function Home (props) {
 	}, []);
 
 	// Validar opções selecionadas
-	const estados = [
-        "Acre","Alagoas","Amazonas","Amapá","Bahia","Ceará","Distrito Federal","Espírito Santo","Goiás","Maranhão","Minas Gerais",
-        "Mato Grosso do Sul","Mato Grosso","Pará","Paraíba","Pernambuco","Piauí","Paraná","Rio de Janeiro","Rio Grande do Norte","Rondônia",
-        "Roraima","Rio Grande do Sul","Santa Catarina","Sergipe","São Paulo","Tocantins"
-    ];
 
 	function handleValidation(){
         let errorsInput = {};
@@ -129,14 +124,7 @@ export default function Home (props) {
 		{ width: 1200, itemsToShow: 4 }
 	];
 
-	function guessState(parcialString){
-		let statesWithParcialString = [];
-		importedStates.forEach(x=> { if (x["Nome"].toLowerCase().includes(parcialString))  statesWithParcialString.push(x) } )
-		setStates(statesWithParcialString)
-	}
-
     const handleInputChange = event => {
-        guessState(event.target.value.toLowerCase())
         const { name, value } = event.target;
         setFields(prevState => ({
           ...prevState,
@@ -221,9 +209,9 @@ export default function Home (props) {
             <Carousel breakPoints={breakPoints}>
                 <HomeCard key={1} city={airports[flights[0].destination].city} price={flights[0].price.total} src={items[0].img} currency="EUR"></HomeCard>
                 <HomeCard key={2} city={airports[flights[1].destination].city} price={flights[1].price.total} src={items[1].img} currency="EUR"></HomeCard>
-                <HomeCard key={3} city={airports[flights[2].destination].city} price={flights[2].price.total} src={items[4].img} currency="EUR"></HomeCard>
+                <HomeCard key={3} city={airports[flights[2].destination].city} price={flights[2].price.total} src={items[2].img} currency="EUR"></HomeCard>
                 <HomeCard key={4} city={airports[flights[3].destination].city} price={flights[3].price.total} src={items[3].img} currency="EUR"></HomeCard>
-                <HomeCard key={5} city={airports[flights[4].destination].city} price={flights[4].price.total} src={items[2].img} currency="EUR"></HomeCard>
+                <HomeCard key={5} city={airports[flights[4].destination].city} price={flights[4].price.total} src={items[4].img} currency="EUR"></HomeCard>
             </Carousel>
 
 		    : <Spinner animation="border" variant="primary" />}

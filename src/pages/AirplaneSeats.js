@@ -73,6 +73,7 @@ function iniciaAssentos(seatmap) {
 
   const tamX = seatmap["data"][0]["decks"][0]["deckConfiguration"]["length"];
   const tamY = seatmap["data"][0]["decks"][0]["deckConfiguration"]["width"];
+  let startRow=seatmap["data"][0]["decks"][0]["deckConfiguration"]["startSeatRow"];
 
   const width = tamY;
 
@@ -90,8 +91,8 @@ function iniciaAssentos(seatmap) {
     let y = el.coordinates.y;
     count = y + x*width;
 
-    let seatNumber = (alfabeto[y].concat((parseInt(x,10)).toString()));
-    console.log(el["travelerPricing"][0]["seatAvailabilityStatus"]);
+    let seatNumber = (alfabeto[y].concat((parseInt(x,10) + parseInt(startRow,10)).toString()));
+
     if (el["travelerPricing"][0]["seatAvailabilityStatus"] === "AVAILABLE"){
       boolVar = false;
     }else{
@@ -218,7 +219,6 @@ function AirplaneSeats (props){
           <Spinner animation="border" variant="primary"/>
           }
 
-      <h3 id="seat">O valor total foi: R$ {(seat * seatCost).toFixed(2)}</h3>
       <div class="w-200 d-flex justify-content-center">
       <Link
           className="btn btn-danger"
